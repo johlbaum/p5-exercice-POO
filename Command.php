@@ -11,4 +11,17 @@ class Command
             $contact->toString();
         }
     }
+
+    public function detail($contactId): void
+    {
+        $contactManager = new ContactManager;
+        $contact = $contactManager->findById($contactId);
+
+        if (!$contact) {
+            echo "Contact non trouvé\n";
+            return;
+        }
+
+        $contact->toString();
+    }
 }
