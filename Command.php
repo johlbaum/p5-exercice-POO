@@ -24,4 +24,13 @@ class Command
 
         $contact->toString();
     }
+
+    public function create($newContact): void
+    {
+        $contactManager = new ContactManager;
+        $contact = $contactManager->create($newContact);
+
+        echo "Contact créé : ";
+        $contact->toString();
+    }
 }

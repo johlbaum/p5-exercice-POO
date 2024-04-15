@@ -34,4 +34,22 @@ class ContactManager
 
         return new Contact($contact['id'], $contact['name'], $contact['email'], $contact['phone_number']);
     }
+
+    public function create($newContact): Contact
+    {
+        $dbConnect = new DBConnect;
+        $pdo = $dbConnect->getPDO();
+
+        $sqlQuery = "INSERT INTO contact (name, email, phone_number) VALUES (:name, :email, :phone_number)";
+        $contactStatement = $pdo->prepare($sqlQuery);
+        $contactStatement->execute([
+            'name' => $newContact['name'],
+            'email' => $newContact['email'],
+            'phone_number' => $newContact['phone_number']
+        ]);
+
+        $contactId = $pdo->lastInsertId();
+
+        return $this->findById($contactId);
+    }
 }
