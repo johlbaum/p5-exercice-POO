@@ -33,4 +33,17 @@ class Command
         echo "Contact créé : ";
         $contact->toString();
     }
+
+    public function delete($contactId): void
+    {
+        $contactManager = new ContactManager;
+        $contactToDelete = $contactManager->findById($contactId);
+
+        if ($contactToDelete) {
+            $contactManager->delete($contactId);
+            echo "Contact supprimé\n";
+        } else {
+            echo "Contact non trouvé\n";
+        }
+    }
 }

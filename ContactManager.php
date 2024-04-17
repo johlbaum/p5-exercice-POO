@@ -41,8 +41,8 @@ class ContactManager
         $pdo = $dbConnect->getPDO();
 
         $sqlQuery = "INSERT INTO contact (name, email, phone_number) VALUES (:name, :email, :phone_number)";
-        $contactStatement = $pdo->prepare($sqlQuery);
-        $contactStatement->execute([
+        $createContactStatement = $pdo->prepare($sqlQuery);
+        $createContactStatement->execute([
             'name' => $newContact['name'],
             'email' => $newContact['email'],
             'phone_number' => $newContact['phone_number']
@@ -51,5 +51,15 @@ class ContactManager
         $contactId = $pdo->lastInsertId();
 
         return $this->findById($contactId);
+    }
+
+    public function delete($contactId): void
+    {
+        $dbConnect = new DBConnect;
+        $pdo = $dbConnect->getPDO();
+
+        $sqlQuery = "DELETE FROM contact WHERE id = ?";
+        $deleteContactStatement = $pdo->prepare($sqlQuery);
+        $deleteContactStatement->execute([$contactId]);
     }
 }
