@@ -20,9 +20,19 @@ class Contact
         return $this->contactId;
     }
 
+    public function setContactId(int $id): void
+    {
+        $this->contactId = $id;
+    }
+
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function setName(string $name): void
+    {
+        $this->name = $name;
     }
 
     public function getEmail(): string
@@ -30,9 +40,19 @@ class Contact
         return $this->email;
     }
 
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
     public function getPhoneNumber(): string
     {
         return $this->phoneNumber;
+    }
+
+    public function setPhoneNumber(string $phoneNumber): void
+    {
+        $this->phoneNumber = $phoneNumber;
     }
 
     public function __toString(): string
