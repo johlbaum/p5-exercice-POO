@@ -41,9 +41,20 @@ class Command
 
         if ($contactToDelete) {
             $contactManager->delete($contactId);
-            echo "Contact supprimé\n";
+
+            echo "Contact supprimé : ";
+            $contactToDelete->toString();
         } else {
             echo "Contact non trouvé\n";
         }
+    }
+
+    public function modify($updatedContact): void
+    {
+        $contactManager = new ContactManager;
+        $updatedContact = $contactManager->modify($updatedContact);
+
+        echo "Contact mis à jour : ";
+        $updatedContact->toString();
     }
 }

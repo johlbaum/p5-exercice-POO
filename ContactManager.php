@@ -62,4 +62,21 @@ class ContactManager
         $deleteContactStatement = $pdo->prepare($sqlQuery);
         $deleteContactStatement->execute([$contactId]);
     }
+
+    public function modify($updatedContact): Contact
+    {
+        $dbConnect = new DBConnect;
+        $pdo = $dbConnect->getPDO();
+
+        $sqlQuery = "UPDATE contact SET name = :name, email = :email, phone_number = :phone_number WHERE id = :id";
+        $updatedContactStatement = $pdo->prepare($sqlQuery);
+        $updatedContactStatement->execute([
+            'id' => $updatedContact['id'],
+            'name' => $updatedContact['name'],
+            'email' => $updatedContact['email'],
+            'phone_number' => $updatedContact['phone_number']
+        ]);
+
+        return $this->findById($updatedContact['id']);
+    }
 }
