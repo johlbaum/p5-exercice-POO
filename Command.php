@@ -2,10 +2,16 @@
 
 class Command
 {
+    private ContactManager $contactManager;
+
+    public function __construct()
+    {
+        $this->contactManager = new ContactManager();
+    }
+
     public function list(): void
     {
-        $contactManager = new ContactManager;
-        $contacts = $contactManager->findAll();
+        $contacts = $this->contactManager->findAll();
 
         foreach ($contacts as $contact) {
             echo $contact . "\n";
@@ -14,8 +20,7 @@ class Command
 
     public function detail($contactId): void
     {
-        $contactManager = new ContactManager;
-        $contact = $contactManager->findById($contactId);
+        $contact = $this->contactManager->findById($contactId);
 
         if (!$contact) {
             echo "Contact non trouvé\n";
@@ -27,19 +32,17 @@ class Command
 
     public function create($newContact): void
     {
-        $contactManager = new ContactManager;
-        $contact = $contactManager->create($newContact);
+        $contact = $this->contactManager->create($newContact);
 
         echo "Contact créé : " . $contact . "\n";
     }
 
     public function delete($contactId): void
     {
-        $contactManager = new ContactManager;
-        $contactToDelete = $contactManager->findById($contactId);
+        $contactToDelete = $this->contactManager->findById($contactId);
 
         if ($contactToDelete) {
-            $contactManager->delete($contactId);
+            $this->contactManager->delete($contactId);
 
             echo "Contact supprimé : " . $contactToDelete . "\n";
         } else {
@@ -49,8 +52,7 @@ class Command
 
     public function modify($updatedContact): void
     {
-        $contactManager = new ContactManager;
-        $updatedContact = $contactManager->modify($updatedContact);
+        $updatedContact = $this->contactManager->modify($updatedContact);
 
         echo "Contact mis à jour : " . $updatedContact . "\n";
     }

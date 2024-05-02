@@ -5,21 +5,20 @@ require('ContactManager.php');
 require('Contact.php');
 require('Command.php');
 
+$command = new Command();
+
 while (true) {
     $line = readline("Entrez votre commande : ");
 
     //Afficher la liste des commandes.
     if ($line === "help") {
-        $command = new Command;
         $command->help();
         //Afficher la liste des contacts.
     } elseif ($line === "list") {
-        $command = new Command;
         $command->list();
         //Afficher un contact à partir de son id. Exemple : "detail id".
     } elseif (preg_match('/^detail (\d+)$/', $line, $matches)) {
         $contactId = $matches[1];
-        $command = new Command;
         $command->detail($contactId);
         //Création d'un nouveau contact. Exemple : "create name, email, phone_number".
     } elseif (preg_match('/^create ([a-zA-Z]+(?:-[a-zA-Z]+)?(?: [a-zA-Z]+)?), (.*), (\d+)$/', $line, $matches)) {
@@ -37,7 +36,6 @@ while (true) {
         //Suppression d'un contact. Exemple : "delete id".
     } elseif (preg_match('/^delete (\d+)$/', $line, $matches)) {
         $contactId = $matches[1];
-        $command = new Command;
         $command->delete($contactId);
         //Mis à jour d'un contact. Exemple : "modify id name, email, phone_number".
     } elseif (preg_match('/^modify (\d+) ([a-zA-Z]+(?:-[a-zA-Z]+)?(?: [a-zA-Z]+)?), (.*), (\d+)$/', $line, $matches)) {
@@ -48,7 +46,6 @@ while (true) {
                 "email" => $matches[3],
                 "phone_number" => $matches[4]
             ];
-            $command = new Command;
             $command->modify($updatedContact);
         } else {
             echo "Le format de l'email est non valide.\n";
