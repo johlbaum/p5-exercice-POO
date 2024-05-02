@@ -8,7 +8,7 @@ class Command
         $contacts = $contactManager->findAll();
 
         foreach ($contacts as $contact) {
-            $contact->toString();
+            echo $contact . "\n";
         }
     }
 
@@ -22,7 +22,7 @@ class Command
             return;
         }
 
-        $contact->toString();
+        echo $contact . "\n";
     }
 
     public function create($newContact): void
@@ -30,8 +30,7 @@ class Command
         $contactManager = new ContactManager;
         $contact = $contactManager->create($newContact);
 
-        echo "Contact créé : ";
-        $contact->toString();
+        echo "Contact créé : " . $contact . "\n";
     }
 
     public function delete($contactId): void
@@ -42,8 +41,7 @@ class Command
         if ($contactToDelete) {
             $contactManager->delete($contactId);
 
-            echo "Contact supprimé : ";
-            $contactToDelete->toString();
+            echo "Contact supprimé : " . $contactToDelete . "\n";
         } else {
             echo "Contact non trouvé\n";
         }
@@ -54,8 +52,7 @@ class Command
         $contactManager = new ContactManager;
         $updatedContact = $contactManager->modify($updatedContact);
 
-        echo "Contact mis à jour : ";
-        $updatedContact->toString();
+        echo "Contact mis à jour : " . $updatedContact . "\n";
     }
 
     public function help(): void

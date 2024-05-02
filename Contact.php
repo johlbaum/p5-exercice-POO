@@ -35,8 +35,8 @@ class Contact
         return $this->phoneNumber;
     }
 
-    public function toString(): void
+    public function __toString(): string
     {
-        echo $this->contactId . ' ' . $this->name . ' ' . $this->email . ' ' . $this->phoneNumber . "\n";
+        return $this->contactId . ' ' . $this->name . ' ' . $this->email . ' ' . $this->phoneNumber;
     }
 }
