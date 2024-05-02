@@ -57,4 +57,15 @@ class Command
         echo "Contact mis à jour : ";
         $updatedContact->toString();
     }
+
+    public function help(): void
+    {
+        echo "help : affiche cette aide\n";
+        echo "list : liste les contacts\n";
+        echo "create [nom], [email], [telephone] : crée un contact\n";
+        echo "delete [id] : supprime un contact\n";
+        echo "quit : quitte le programme\n";
+        echo "\n";
+        echo "Attention à la syntaxe des commandes, les espaces, virgules et majuscules sont importantes.\n";
+    }
 }

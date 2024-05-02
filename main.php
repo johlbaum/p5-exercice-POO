@@ -7,9 +7,13 @@ require('Command.php');
 
 while (true) {
     $line = readline("Entrez votre commande : ");
-    
-    //Afficher la liste des contacts.
-    if ($line === "list") {
+
+    //Afficher la liste des commandes.
+    if ($line === "help") {
+        $command = new Command;
+        $command->help();
+        //Afficher la liste des contacts.
+    } elseif ($line === "list") {
         $command = new Command;
         $command->list();
         //Afficher un contact à partir de son id. Exemple : "detail id".
