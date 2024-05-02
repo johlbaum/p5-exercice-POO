@@ -2,21 +2,20 @@
 
 class DBConnect
 {
-    private PDO $pdo;
+    private static $instance = null;
+    private $pdo;
 
-    public function __construct()
+    private function __construct()
     {
-        $this->pdo = $this->dbConnect();
+        $this->pdo = new PDO('mysql:host=localhost;dbname=contact_app;charset=utf8', 'root', 'root');
     }
 
-    private function dbConnect(): PDO
+    public static function getInstance(): DBConnect
     {
-        try {
-            $pdo = new PDO('mysql:host=localhost;dbname=contact_app;charset=utf8', 'root', 'root');
-            return $pdo;
-        } catch (Exception $e) {
-            die('Erreur : ' . $e->getMessage());
+        if (self::$instance == null) {
+            self::$instance = new DBConnect();
         }
+        return self::$instance;
     }
 
     public function getPDO(): PDO

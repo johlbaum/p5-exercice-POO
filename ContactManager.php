@@ -2,13 +2,17 @@
 
 class ContactManager
 {
+    private $db;
+
+    public function __construct()
+    {
+        $this->db = DBConnect::getInstance()->getPDO();
+    }
+
     public function findAll(): array
     {
-        $dbConnect = new DBConnect;
-        $pdo = $dbConnect->getPDO();
-
         $sqlQuery = "SELECT * FROM contact";
-        $contactStatement = $pdo->query($sqlQuery);
+        $contactStatement = $this->db->query($sqlQuery);
         $contacts = [];
 
         while ($contact = $contactStatement->fetch()) {
@@ -20,11 +24,8 @@ class ContactManager
 
     public function findById($contactId): ?Contact
     {
-        $dbConnect = new DBConnect;
-        $pdo = $dbConnect->getPDO();
-
         $sqlQuery = "SELECT * FROM contact WHERE id = ?";
-        $contactStatement = $pdo->prepare($sqlQuery);
+        $contactStatement = $this->db->prepare($sqlQuery);
         $contactStatement->execute([$contactId]);
         $contact = $contactStatement->fetch();
 
@@ -37,39 +38,30 @@ class ContactManager
 
     public function create($newContact): Contact
     {
-        $dbConnect = new DBConnect;
-        $pdo = $dbConnect->getPDO();
-
         $sqlQuery = "INSERT INTO contact (name, email, phone_number) VALUES (:name, :email, :phone_number)";
-        $createContactStatement = $pdo->prepare($sqlQuery);
+        $createContactStatement = $this->db->prepare($sqlQuery);
         $createContactStatement->execute([
             'name' => $newContact['name'],
             'email' => $newContact['email'],
             'phone_number' => $newContact['phone_number']
         ]);
 
-        $contactId = $pdo->lastInsertId();
+        $contactId = $this->db->lastInsertId();
 
         return $this->findById($contactId);
     }
 
     public function delete($contactId): void
     {
-        $dbConnect = new DBConnect;
-        $pdo = $dbConnect->getPDO();
-
         $sqlQuery = "DELETE FROM contact WHERE id = ?";
-        $deleteContactStatement = $pdo->prepare($sqlQuery);
+        $deleteContactStatement = $this->db->prepare($sqlQuery);
         $deleteContactStatement->execute([$contactId]);
     }
 
     public function modify($updatedContact): Contact
     {
-        $dbConnect = new DBConnect;
-        $pdo = $dbConnect->getPDO();
-
         $sqlQuery = "UPDATE contact SET name = :name, email = :email, phone_number = :phone_number WHERE id = :id";
-        $updatedContactStatement = $pdo->prepare($sqlQuery);
+        $updatedContactStatement = $this->db->prepare($sqlQuery);
         $updatedContactStatement->execute([
             'id' => $updatedContact['id'],
             'name' => $updatedContact['name'],
