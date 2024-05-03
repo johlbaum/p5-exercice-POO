@@ -5,9 +5,11 @@ require('ContactManager.php');
 require('Contact.php');
 require('Command.php');
 
+// Cette classe contient l'ensemble des commandes qui pourront être demandées par l'utilisateur.
 $command = new Command();
 
 while (true) {
+    //La commande de l'utilisateur.
     $line = readline("Entrez votre commande : ");
 
     //Afficher la liste des commandes.
@@ -50,6 +52,9 @@ while (true) {
         } else {
             echo "Le format de l'email est non valide.\n";
         }
+        //Quitter le programme.
+    } elseif ($line == "quit") {
+        break;
         //Si la commande n'est pas valide, afficher un message d'erreur.
     } else {
         echo "Commande non valide.\n";
