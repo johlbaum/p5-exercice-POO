@@ -23,7 +23,8 @@ class ContactManager
     public function findAll(): array
     {
         $sqlQuery = "SELECT * FROM contact";
-        $contactStatement = $this->db->query($sqlQuery);
+        $contactStatement = $this->db->prepare($sqlQuery);
+        $contactStatement->execute();
         $contacts = [];
 
         while ($contact = $contactStatement->fetch()) {
