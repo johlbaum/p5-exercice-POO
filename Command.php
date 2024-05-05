@@ -107,6 +107,10 @@ class Command
     {
         $updatedContact = $this->contactManager->modify($updatedContact);
 
-        echo "Contact mis à jour : " . $updatedContact . "\n";
+        if ($updatedContact) {
+            echo "Contact mis à jour : " . $updatedContact . "\n";
+        } else {
+            echo "Contact à mettre à jour non trouvé\n";
+        }
     }
 }

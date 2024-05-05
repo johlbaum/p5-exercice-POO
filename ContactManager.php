@@ -89,19 +89,29 @@ class ContactManager
     /**
      * Méthode qui permet de mettre à jour un contact de la base de données.
      * @param array $updatedContact : un tableau associatif avec les informations d'un contact mises à jour.
-     * @return Contact : le contact qui vient d'être mis à jour.
+     * @return Contact|null : le contact qui vient d'être mis à jour ou null si aucun contact à mettre à jour n'est trouvé.
      */
-    public function modify(array $updatedContact): Contact
+    public function modify(array $updatedContact): ?Contact
     {
-        $sqlQuery = "UPDATE contact SET name = :name, email = :email, phone_number = :phone_number WHERE id = :id";
-        $updatedContactStatement = $this->db->prepare($sqlQuery);
-        $updatedContactStatement->execute([
-            'id' => $updatedContact['id'],
-            'name' => $updatedContact['name'],
-            'email' => $updatedContact['email'],
-            'phone_number' => $updatedContact['phone_number']
-        ]);
 
-        return $this->findById($updatedContact['id']);
+        // Recherche du contact à mettre à jour
+        $contactToUpdate = $this->findById($updatedContact['id']);
+
+        // Si le contact à mettre à jour existe.
+        if ($contactToUpdate) {
+            $sqlQuery = "UPDATE contact SET name = :name, email = :email, phone_number = :phone_number WHERE id = :id";
+            $updatedContactStatement = $this->db->prepare($sqlQuery);
+            $updatedContactStatement->execute([
+                'id' => $updatedContact['id'],
+                'name' => $updatedContact['name'],
+                'email' => $updatedContact['email'],
+                'phone_number' => $updatedContact['phone_number']
+            ]);
+
+            return $this->findById($updatedContact['id']);
+        } else {
+            //Si le contact à mettre à jour n'existe pas.
+            return null;
+        }
     }
 }
