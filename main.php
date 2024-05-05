@@ -1,5 +1,6 @@
 <?php
 
+require('config.php');
 require('DBConnect.php');
 require('ContactManager.php');
 require('Contact.php');

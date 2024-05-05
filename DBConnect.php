@@ -16,7 +16,7 @@ class DBConnect
      */
     private function __construct()
     {
-        $this->pdo = new PDO('mysql:host=localhost;dbname=contact_app;charset=utf8', 'root', 'root');
+        $this->pdo = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PASSWORD);
     }
 
     /**
