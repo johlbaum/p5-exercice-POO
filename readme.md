@@ -1,5 +1,5 @@
-# PHP P5 Exercice : CLI
----
+## PHP P5 Exercice : CLI
+
 Ce projet est un exercice dans le cadre de la formation Openclassrooms "Développeur d'application PHP/Symfony".
 
 Voici les instructions pour installer le projet PHP :
